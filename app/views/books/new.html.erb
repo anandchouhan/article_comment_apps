@@ -1,0 +1,22 @@
+<%= form_for (@annu), url: books_path, method: :post do |f| %>
+<%#= form_for (@annu), url: books_path do |f| %>
+<%#= form_for (@annu), :url => {:action => "create"}, :method => "post" do |f| %>
+	<% if @annu.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@annu.errors.count, "error") %> prohibited
+        this annu from being saved:
+      </h2>
+      <ul>
+        <% @annu.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+	 <% end %>
+	<p>
+		<%= f.label :book_name %>	
+		<%= f.text_field :name %>
+		<%= f.submit %>
+	</p>
+<% end %>	

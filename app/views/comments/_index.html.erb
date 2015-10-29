@@ -1,0 +1,9 @@
+
+<%= form_for([@article,@article.comments.build], url: '/users/:user_id/articles/:article_id/comments', method: :post) do |f| %>
+	<%= hidden_field_tag :user_id, params[:user_id] %>
+	<%= hidden_field_tag :article_id, params[:article_id] %>
+	<%= f.label :Comment %>
+	<%= f.text_field :text %>
+	<%= f.submit 'comment' %>
+<% end %>
+

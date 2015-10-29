@@ -1,0 +1,20 @@
+<%= form_for([@article,@article.comments.build], url: user_article_comments_path(@user.id,@article.id), method: :post) do |f| %>
+    <%  if @comment && @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@comment.errors.count, "error") %>
+      </h2>
+      <ul>
+        <% @comment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<%= hidden_field_tag :user_id, params[:user_id] %>
+	<%= hidden_field_tag :article_id, params[:article_id] %>
+	<%= f.label :Comment %>
+	<%= f.text_field :text %>
+	<%= f.submit %>
+<% end %>
+

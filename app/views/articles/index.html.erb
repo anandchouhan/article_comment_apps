@@ -1,0 +1,28 @@
+<%= link_to 'new post', new_user_article_path(@user.id) if user_signed_in?  %><br><br>
+	<% if @articles.present? %>
+		<% @articles.each do |article| %>
+			Article:
+			<%= article.title %> &nbsp; &nbsp;
+			<%= article.user.email %>
+		<% 	if user_signed_in? %>
+			<%= link_to 'delete', user_article_path(@user.id,article.id), method: :delete if current_user.id == article.user.id %>
+			<%= link_to "show", user_article_path(@user.id,article.id) if  current_user.id == article.user.id %>
+			<%= link_to "edit",  edit_user_article_path(@user.id,article.id) if  current_user.id == article.user.id %><br>
+	  <% end %>
+	<br>
+			<% article.comments.each do |comment| %>
+				<%= comment.text %> &nbsp; &nbsp;
+				<%= comment.user.email %><br>
+				<% if user_signed_in? %>
+					<% if comment.id != nil %>
+						<%= link_to "Delete", user_article_comment_path(comment.user.id,comment.article.id,comment.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.id == comment.user.id %><br>
+					<% end %>
+				<% end %>
+			<% end %>	
+		<% if user_signed_in? %>
+			<%= render partial: '/comments/form', :locals => {:@article => article} %><br>
+		<% else %>
+			<%= render partial: '/comments/index', :locals => {:@article => article} %><br>
+		<% end %>
+		<% end %>
+	<% end 	%>

@@ -1,0 +1,10 @@
+<%= link_to 'new', new_book_path %>
+<br>
+<% if @annus.present? %>
+	<% @annus.each do |annu| %>
+	<%= annu.name %>
+	<%= link_to 'edit', edit_book_path(annu) %>
+	<%= link_to 'delete', book_path(annu), method: :delete %>
+	<%= link_to 'show', book_path(annu) %><br>
+	<% end %>
+<% end %>
